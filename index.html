@@ -3,515 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ViralCast AI — AI UGC Ad Creatives That Convert</title>
-<meta name="description" content="We produce AI-generated UGC ad creatives that hook, hold, and convert — scaled for skincare, astrology, apps, and DTC brands.">
+<title>UGenStudio — AI UGC Ad Creatives That Convert</title>
+<meta name="description" content="UGenStudio produces AI-powered UGC ad creatives for skincare, astrology, and app brands — built to stop the scroll and convert.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#07070c;
-    --violet:#8b5cf6;
-    --pink:#ec4899;
-    --cyan:#22d3ee;
+    --bg: #07070c;
+    --bg-alt: #0d0d16;
+    --violet: #8b5cf6;
+    --pink: #ec4899;
+    --cyan: #22d3ee;
   }
-  *{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;}
   body{
     background:var(--bg);
-    font-family:'Inter',sans-serif;
-    color:#e5e7eb;
-    overflow-x:hidden;
+    color:#f4f4f7;
+    font-family:'Inter', sans-serif;
   }
-  h1,h2,h3,h4,.font-display{font-family:'Sora',sans-serif;}
-  .gradient-text{
-    background:linear-gradient(90deg,#a78bfa,#f472b6,#22d3ee);
+  h1,h2,h3,h4,.font-display{font-family:'Plus Jakarta Sans', sans-serif;}
+
+  .grad-text{
+    background:linear-gradient(90deg, var(--violet), var(--pink) 60%, var(--cyan));
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
   }
+  .grad-btn{
+    background:linear-gradient(90deg, var(--violet), var(--pink));
+  }
+  .grad-border{
+    position:relative;
+    border-radius:1.25rem;
+  }
+  .grad-border::before{
+    content:'';
+    position:absolute;inset:0;
+    border-radius:1.25rem;
+    padding:1px;
+    background:linear-gradient(135deg, rgba(139,92,246,.7), rgba(236,72,153,.5), rgba(34,211,238,.5));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+  }
+  .glass{
+    background:rgba(255,255,255,0.035);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.08);
+  }
   .blob{
     position:absolute;
-    border-radius:9999px;
     filter:blur(90px);
-    opacity:0.35;
+    opacity:0.45;
+    border-radius:9999px;
     pointer-events:none;
     z-index:0;
   }
-  .glass{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
-  }
-  .btn-primary{
-    background:linear-gradient(90deg,var(--violet),var(--pink));
-    transition:all .25s ease;
-  }
-  .btn-primary:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px -8px rgba(236,72,153,0.6);
-  }
-  .nav-link{position:relative;}
-  .nav-link::after{
-    content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;
-    background:linear-gradient(90deg,var(--violet),var(--pink));
-    transition:width .25s ease;
-  }
-  .nav-link:hover::after{width:100%;}
-  .fade-up{
-    opacity:0;
-    transform:translateY(30px);
-    transition:opacity .7s ease, transform .7s ease;
-  }
-  .fade-up.show{opacity:1;transform:translateY(0);}
-  .video-card{
-    position:relative;
+  .card-hover{transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;}
+  .card-hover:hover{transform:translateY(-6px); box-shadow:0 25px 60px -20px rgba(139,92,246,0.35);}
+
+  .video-frame{
     aspect-ratio:9/16;
-    border-radius:1.25rem;
+    width:100%;
+    border-radius:1rem;
     overflow:hidden;
-    background:#111;
-    border:1px solid rgba(255,255,255,0.08);
-    cursor:pointer;
-    transition:transform .35s ease, box-shadow .35s ease;
+    background:#000;
   }
-  .video-card:hover{
-    transform:translateY(-8px) scale(1.015);
-    box-shadow:0 25px 50px -15px rgba(139,92,246,0.35);
-  }
-  .video-card img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform .5s ease, filter .5s ease;
-  }
-  .video-card:hover img{transform:scale(1.06);filter:brightness(0.65);}
-  .play-btn{
-    position:absolute;inset:0;margin:auto;
-    width:56px;height:56px;border-radius:9999px;
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.4);
-    backdrop-filter:blur(6px);
-    display:flex;align-items:center;justify-content:center;
-    z-index:10;
-    transition:transform .25s ease, background .25s ease;
-  }
-  .video-card:hover .play-btn{transform:scale(1.1);background:rgba(255,255,255,0.25);}
-  .badge-tag{
-    font-size:0.65rem;letter-spacing:0.08em;
-    padding:0.25rem 0.6rem;border-radius:9999px;
-    font-weight:600;text-transform:uppercase;
-  }
+  .video-frame iframe{width:100%;height:100%;}
+
+  .fade-up{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .fade-up.in{opacity:1; transform:translateY(0);}
+
   .marquee-track{
-    display:flex;width:max-content;
+    display:flex;
+    width:max-content;
     animation:marquee 28s linear infinite;
   }
   @keyframes marquee{
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
   }
-  .num-counter{font-variant-numeric:tabular-nums;}
+
   .accordion-content{
-    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
   }
-  .accordion-item.active .accordion-content{max-height:300px;}
-  .accordion-item.active .chevron{transform:rotate(45deg);}
-  .chevron{transition:transform .25s ease;}
-  ::-webkit-scrollbar{width:8px;}
-  ::-webkit-scrollbar-track{background:#0a0a10;}
-  ::-webkit-scrollbar-thumb{background:#3b2f52;border-radius:4px;}
+  .accordion-item.open .accordion-content{max-height:400px;}
+  .accordion-item.open .chev{transform:rotate(45deg);}
+  .chev{transition:transform .3s ease;}
+
+  .num-counter{font-variant-numeric: tabular-nums;}
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--violet),var(--pink)); border-radius:10px;}
+
+  .popular-badge{
+    background:linear-gradient(90deg, var(--violet), var(--pink));
+  }
 </style>
 </head>
-<body class="antialiased">
+<body class="antialiased overflow-x-hidden">
 
-<!-- NAV -->
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-2 font-display font-800 text-lg tracking-tight">
-      <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-sm font-bold">V</span>
-      <span class="font-display font-bold">ViralCast <span class="gradient-text">AI</span></span>
-    </a>
-    <nav class="hidden md:flex items-center gap-8 text-sm text-gray-300">
-      <a href="#work" class="nav-link">Work</a>
-      <a href="#why" class="nav-link">Why AI UGC</a>
-      <a href="#process" class="nav-link">Process</a>
-      <a href="#results" class="nav-link">Results</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-    </nav>
-    <a href="#contact" class="hidden md:inline-block btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full">Book a Free Strategy Call</a>
-    <button id="menuBtn" class="md:hidden text-gray-200">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden glass mx-4 rounded-2xl px-6 py-5 flex flex-col gap-4 text-gray-200">
-    <a href="#work" class="mobile-link">Work</a>
-    <a href="#why" class="mobile-link">Why AI UGC</a>
-    <a href="#process" class="mobile-link">Process</a>
-    <a href="#results" class="mobile-link">Results</a>
-    <a href="#faq" class="mobile-link">FAQ</a>
-    <a href="#contact" class="btn-primary text-white text-center text-sm font-semibold px-5 py-3 rounded-full">Book a Free Strategy Call</a>
+<!-- NAVBAR -->
+<header class="fixed top-0 left-0 right-0 z-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10">
+    <div class="mt-4 glass rounded-2xl px-5 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 font-display font-extrabold text-lg tracking-tight">
+        <span class="w-9 h-9 rounded-xl grad-btn flex items-center justify-center text-sm">✨</span>
+        UGen<span class="grad-text">Studio</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <a href="#work" class="hover:text-white transition">Work</a>
+        <a href="#process" class="hover:text-white transition">Process</a>
+        <a href="#why" class="hover:text-white transition">Why AI UGC</a>
+        <a href="#packages" class="hover:text-white transition">Packages</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
+      </nav>
+      <a href="#contact" class="hidden md:inline-flex items-center gap-2 grad-btn text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition">
+        Book a Strategy Call
+      </a>
+      <button id="menuBtn" class="md:hidden w-9 h-9 flex items-center justify-center rounded-lg glass">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden mt-2 glass rounded-2xl px-5 py-4 flex flex-col gap-4 text-sm font-medium text-gray-300">
+      <a href="#work" class="hover:text-white transition">Work</a>
+      <a href="#process" class="hover:text-white transition">Process</a>
+      <a href="#why" class="hover:text-white transition">Why AI UGC</a>
+      <a href="#packages" class="hover:text-white transition">Packages</a>
+      <a href="#faq" class="hover:text-white transition">FAQ</a>
+      <a href="#contact" class="grad-btn text-white text-center font-semibold px-5 py-2.5 rounded-xl">Book a Strategy Call</a>
+    </div>
   </div>
 </header>
 
 <!-- HERO -->
-<section id="top" class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
-  <div class="blob w-[500px] h-[500px] bg-violet-600 -top-20 -left-20"></div>
-  <div class="blob w-[500px] h-[500px] bg-pink-600 top-40 right-0"></div>
-  <div class="blob w-[400px] h-[400px] bg-cyan-500 bottom-0 left-1/3"></div>
+<section id="top" class="relative pt-40 pb-28 px-6 lg:px-10 overflow-hidden">
+  <div class="blob w-[500px] h-[500px] bg-violet-600 top-[-150px] left-[-150px]"></div>
+  <div class="blob w-[450px] h-[450px] bg-pink-500 top-[100px] right-[-150px]"></div>
+  <div class="blob w-[350px] h-[350px] bg-cyan-400 bottom-[-150px] left-[30%]"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-    <div class="fade-up show">
-      <div class="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-xs font-semibold text-violet-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        Now booking Q2 creative slots
-      </div>
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] mb-6">
-        AI UGC Ads That Feel Real —<br>
-        <span class="gradient-text">And Convert Like Crazy.</span>
-      </h1>
-      <p class="text-lg text-gray-400 max-w-xl mb-8">
-        We script, generate, and optimize AI-powered UGC ad creatives built to stop the scroll in 1.5 seconds and drive real ROAS — for skincare, astrology, apps, and DTC brands.
-      </p>
-      <div class="flex flex-wrap gap-4 mb-10">
-        <a href="#contact" class="btn-primary text-white font-semibold px-7 py-3.5 rounded-full text-sm">Get Custom Ad Creatives →</a>
-        <a href="#work" class="glass font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition">Watch Sample Ads ▶</a>
-      </div>
-      <div class="flex flex-wrap gap-8 text-sm text-gray-400">
-        <div><span class="text-2xl font-display font-bold text-white num-counter" data-count="150">0</span>+ Ads Produced</div>
-        <div><span class="text-2xl font-display font-bold text-white num-counter" data-count="40">0</span>+ Brands Scaled</div>
-        <div><span class="text-2xl font-display font-bold text-white num-counter" data-count="3">0</span>.2x Avg CTR Lift</div>
-      </div>
+  <div class="relative z-10 mx-auto max-w-5xl text-center">
+    <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium text-gray-300 mb-8 fade-up">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Now producing AI UGC ads for skincare, astrology & app brands
+    </div>
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl leading-[1.08] tracking-tight fade-up">
+      AI UGC Ad Creatives<br class="hidden sm:block"> Built to <span class="grad-text">Convert</span>, Not Just Look Good
+    </h1>
+    <p class="mt-6 text-lg text-gray-400 max-w-2xl mx-auto fade-up">
+      UGenStudio turns scripts into scroll-stopping, AI-generated UGC ads — at the speed and volume performance marketers actually need to win on TikTok, Meta, and YouTube.
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 fade-up">
+      <a href="#contact" class="w-full sm:w-auto grad-btn text-white font-semibold px-8 py-4 rounded-xl hover:opacity-90 transition text-base">
+        Get a Custom Quote →
+      </a>
+      <a href="#work" class="w-full sm:w-auto glass text-gray-200 font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition text-base">
+        Watch the Work
+      </a>
     </div>
 
-    <div class="fade-up show relative flex justify-center">
-      <div class="relative w-64 sm:w-72">
-        <div class="absolute -inset-6 bg-gradient-to-br from-violet-600/30 to-pink-600/30 blur-2xl rounded-[2rem]"></div>
-        <div class="relative video-card shadow-2xl" data-id="nvPcS7TIwMg">
-          <img loading="lazy" src="https://img.youtube.com/vi/nvPcS7TIwMg/hqdefault.jpg" alt="Skincare UGC ad sample thumbnail">
-          <div class="play-btn">
-            <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <span class="absolute top-3 left-3 badge-tag bg-pink-500/90 text-white z-10">Skincare</span>
+    <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 fade-up">
+      <div><p class="font-display font-extrabold text-3xl grad-text num-counter" data-count="150">0</p><p class="text-xs text-gray-400 mt-1">Ads Produced</p></div>
+      <div><p class="font-display font-extrabold text-3xl grad-text num-counter" data-count="30">0</p><p class="text-xs text-gray-400 mt-1">Brands Served</p></div>
+      <div><p class="font-display font-extrabold text-3xl grad-text"><span class="num-counter" data-count="48">0</span>h</p><p class="text-xs text-gray-400 mt-1">Avg. Turnaround</p></div>
+      <div><p class="font-display font-extrabold text-3xl grad-text"><span class="num-counter" data-count="4" data-decimal="8">0</span>x</p><p class="text-xs text-gray-400 mt-1">Avg. Client ROAS Lift</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE / TRUST -->
+<section class="border-y border-white/5 py-5 overflow-hidden bg-white/[0.02]">
+  <div class="marquee-track text-gray-500 font-medium text-sm gap-16 pr-16">
+    <div class="flex items-center gap-16">
+      <span>SKINCARE & BEAUTY</span><span>•</span>
+      <span>ASTROLOGY & LIFESTYLE APPS</span><span>•</span>
+      <span>MOBILE APPS & SAAS</span><span>•</span>
+      <span>WELLNESS BRANDS</span><span>•</span>
+      <span>DTC E-COMMERCE</span><span>•</span>
+    </div>
+    <div class="flex items-center gap-16">
+      <span>SKINCARE & BEAUTY</span><span>•</span>
+      <span>ASTROLOGY & LIFESTYLE APPS</span><span>•</span>
+      <span>MOBILE APPS & SAAS</span><span>•</span>
+      <span>WELLNESS BRANDS</span><span>•</span>
+      <span>DTC E-COMMERCE</span><span>•</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / SHOWCASE -->
+<section id="work" class="relative py-28 px-6 lg:px-10">
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">Selected Work</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">Real AI UGC ads, built for real campaigns</h2>
+      <p class="mt-4 text-gray-400">A snapshot of creatives we've produced across skincare, astrology, and app verticals — every one designed around a hook, a story, and a conversion goal.</p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <div class="grad-border card-hover rounded-[1.25rem] p-4 glass fade-up">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/nvPcS7TIwMg" title="Skincare UGC Ad" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pink-500/15 text-pink-300">Skincare · UGC Review</span>
+          <span class="text-xs font-bold text-emerald-400">+38% CTR</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">A relatable AI creator hook designed to build trust and drive product discovery.</p>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- MARQUEE -->
-<div class="relative border-y border-white/10 py-4 bg-white/[0.02] overflow-hidden">
-  <div class="marquee-track text-gray-500 text-sm font-semibold tracking-widest uppercase gap-16 pr-16">
-    <span class="flex gap-16">
-      <span>Skincare</span><span>•</span><span>Astrology & Spiritual Apps</span><span>•</span><span>Mobile Apps</span><span>•</span><span>DTC Beauty</span><span>•</span><span>Wellness</span><span>•</span><span>Fintech</span><span>•</span>
-    </span>
-    <span class="flex gap-16">
-      <span>Skincare</span><span>•</span><span>Astrology & Spiritual Apps</span><span>•</span><span>Mobile Apps</span><span>•</span><span>DTC Beauty</span><span>•</span><span>Wellness</span><span>•</span><span>Fintech</span><span>•</span>
-    </span>
-  </div>
-</div>
-
-<!-- WORK / PORTFOLIO -->
-<section id="work" class="relative py-28 px-6 max-w-7xl mx-auto">
-  <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-    <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">Real Sample Creatives</span>
-    <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 mb-4">See The Ads In Action</h2>
-    <p class="text-gray-400">Hand-picked winning hooks from live campaigns. Click to play. Every video is 100% AI-generated UGC — scripted, shot, and edited by our system.</p>
-  </div>
-
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-    <div class="video-card fade-up" data-id="nvPcS7TIwMg">
-      <img loading="lazy" src="https://img.youtube.com/vi/nvPcS7TIwMg/hqdefault.jpg" alt="Skincare UGC ad">
-      <div class="play-btn"><svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="absolute top-3 left-3 badge-tag bg-pink-500/90 text-white z-10">Skincare</span>
-      <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-10">
-        <p class="text-xs font-semibold text-white">"My skin cleared in 2 weeks" hook</p>
+      <!-- Card 2 -->
+      <div class="grad-border card-hover rounded-[1.25rem] p-4 glass fade-up">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/yUy092HO1RM" title="Astrology Hook Ad" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-violet-500/15 text-violet-300">Astrology · Hook Ad</span>
+          <span class="text-xs font-bold text-emerald-400">3.1x ROAS</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">A curiosity-driven opening line engineered to stop the scroll in the first second.</p>
       </div>
-    </div>
-    <div class="video-card fade-up" data-id="yUy092HO1RM">
-      <img loading="lazy" src="https://img.youtube.com/vi/yUy092HO1RM/hqdefault.jpg" alt="Astrology hook ad">
-      <div class="play-btn"><svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="absolute top-3 left-3 badge-tag bg-violet-500/90 text-white z-10">Astrology</span>
-      <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-10">
-        <p class="text-xs font-semibold text-white">Curiosity-driven scroll-stopper</p>
-      </div>
-    </div>
-    <div class="video-card fade-up" data-id="RgYiBiPOBqM">
-      <img loading="lazy" src="https://img.youtube.com/vi/RgYiBiPOBqM/hqdefault.jpg" alt="App AI UGC ad">
-      <div class="play-btn"><svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="absolute top-3 left-3 badge-tag bg-cyan-500/90 text-white z-10">App</span>
-      <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-10">
-        <p class="text-xs font-semibold text-white">Problem → app solution reveal</p>
-      </div>
-    </div>
-    <div class="video-card fade-up" data-id="2_iIPP8DUTs">
-      <img loading="lazy" src="https://img.youtube.com/vi/2_iIPP8DUTs/hqdefault.jpg" alt="Astrology ad">
-      <div class="play-btn"><svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="absolute top-3 left-3 badge-tag bg-violet-500/90 text-white z-10">Astrology</span>
-      <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-10">
-        <p class="text-xs font-semibold text-white">Zodiac callout + soft CTA</p>
-      </div>
-    </div>
-    <div class="video-card fade-up" data-id="YbaB5Ao9zVw">
-      <img loading="lazy" src="https://img.youtube.com/vi/YbaB5Ao9zVw/hqdefault.jpg" alt="Astrology ad">
-      <div class="play-btn"><svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="absolute top-3 left-3 badge-tag bg-violet-500/90 text-white z-10">Astrology</span>
-      <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent z-10">
-        <p class="text-xs font-semibold text-white">Prediction reveal + download</p>
-      </div>
-    </div>
-  </div>
 
-  <p class="text-center text-gray-500 text-sm mt-10 fade-up">Want ads for your niche? We build custom hooks for beauty, wellness, apps, finance, and more.</p>
-</section>
+      <!-- Card 3 -->
+      <div class="grad-border card-hover rounded-[1.25rem] p-4 glass fade-up">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/RgYiBiPOBqM" title="App AI UGC Ad" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300">Mobile App · AI UGC</span>
+          <span class="text-xs font-bold text-emerald-400">+56% Installs</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">A problem-agitate-solve narrative built to push app installs from cold traffic.</p>
+      </div>
 
-<!-- WHY AI UGC -->
-<section id="why" class="relative py-28 px-6 bg-white/[0.02] border-y border-white/5">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-      <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">The Advantage</span>
-      <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 mb-4">Why Brands Are Switching to AI UGC</h2>
-      <p class="text-gray-400">Same scroll-stopping authenticity as creator UGC. Fraction of the cost, time, and risk.</p>
-    </div>
+      <!-- Card 4 -->
+      <div class="grad-border card-hover rounded-[1.25rem] p-4 glass fade-up">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/2_iIPP8DUTs" title="Astrology UGC Ad" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-violet-500/15 text-violet-300">Astrology · UGC</span>
+          <span class="text-xs font-bold text-emerald-400">-42% CPA</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">A personalized, emotionally-driven story crafted to lower acquisition cost.</p>
+      </div>
 
-    <div class="overflow-x-auto fade-up">
-      <table class="w-full min-w-[640px] border-collapse">
-        <thead>
-          <tr class="text-left text-sm text-gray-400">
-            <th class="py-4 px-4 font-semibold"></th>
-            <th class="py-4 px-4 font-semibold">Traditional UGC</th>
-            <th class="py-4 px-4 font-semibold text-white bg-gradient-to-r from-violet-600/20 to-pink-600/20 rounded-t-xl">ViralCast AI UGC</th>
-          </tr>
-        </thead>
-        <tbody class="text-sm">
-          <tr class="border-t border-white/10">
-            <td class="py-4 px-4 font-semibold text-gray-300">Turnaround time</td>
-            <td class="py-4 px-4 text-gray-500">2–4 weeks</td>
-            <td class="py-4 px-4 bg-gradient-to-r from-violet-600/10 to-pink-600/10 font-semibold">48–72 hours</td>
-          </tr>
-          <tr class="border-t border-white/10">
-            <td class="py-4 px-4 font-semibold text-gray-300">Cost per creative</td>
-            <td class="py-4 px-4 text-gray-500">$300 – $1,500</td>
-            <td class="py-4 px-4 bg-gradient-to-r from-violet-600/10 to-pink-600/10 font-semibold">A fraction of that</td>
-          </tr>
-          <tr class="border-t border-white/10">
-            <td class="py-4 px-4 font-semibold text-gray-300">Creator dependency</td>
-            <td class="py-4 px-4 text-gray-500">High — reshoots, no-shows, delays</td>
-            <td class="py-4 px-4 bg-gradient-to-r from-violet-600/10 to-pink-600/10 font-semibold">Zero</td>
-          </tr>
-          <tr class="border-t border-white/10">
-            <td class="py-4 px-4 font-semibold text-gray-300">Testing volume</td>
-            <td class="py-4 px-4 text-gray-500">3–5 hooks / month</td>
-            <td class="py-4 px-4 bg-gradient-to-r from-violet-600/10 to-pink-600/10 font-semibold">30+ hooks / month</td>
-          </tr>
-          <tr class="border-t border-b border-white/10">
-            <td class="py-4 px-4 font-semibold text-gray-300">Scalability</td>
-            <td class="py-4 px-4 text-gray-500">Limited by talent & budget</td>
-            <td class="py-4 px-4 bg-gradient-to-r from-violet-600/10 to-pink-600/10 font-semibold rounded-b-xl">Unlimited, on-demand</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Card 5 -->
+      <div class="grad-border card-hover rounded-[1.25rem] p-4 glass fade-up">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/YbaB5Ao9zVw" title="Astrology UGC Ad" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-violet-500/15 text-violet-300">Astrology · UGC</span>
+          <span class="text-xs font-bold text-emerald-400">2.4x Watch Time</span>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">A fast-paced retention hook that kept viewers watching to the CTA.</p>
+      </div>
+
+      <!-- Card 6: CTA card -->
+      <div class="rounded-[1.25rem] p-8 flex flex-col items-center justify-center text-center glass card-hover fade-up">
+        <div class="w-14 h-14 rounded-2xl grad-btn flex items-center justify-center text-2xl mb-5">🚀</div>
+        <h3 class="font-display font-bold text-xl">Want ads like these for your brand?</h3>
+        <p class="text-sm text-gray-400 mt-2">Tell us your goal — installs, sales, or sign-ups — and we'll build the creative roadmap.</p>
+        <a href="#contact" class="mt-6 grad-btn text-white text-sm font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition">Start a Project</a>
+      </div>
+
     </div>
+    <p class="text-center text-xs text-gray-500 mt-8">*Performance metrics reflect illustrative campaign benchmarks and vary by brand, offer, and spend.</p>
   </div>
 </section>
 
 <!-- PROCESS -->
-<section id="process" class="relative py-28 px-6 max-w-7xl mx-auto">
-  <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-    <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">How It Works</span>
-    <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 mb-4">From Brief To Winning Ad in 4 Steps</h2>
-  </div>
-
-  <div class="grid md:grid-cols-4 gap-6">
-    <div class="glass rounded-2xl p-6 fade-up relative">
-      <span class="text-5xl font-display font-extrabold text-white/10 absolute top-4 right-5">01</span>
-      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center mb-5">
-        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M21 12c0 4.97-4.03 9-9 9-1.5 0-2.9-.37-4.14-1.02L3 21l1.02-3.86A8.96 8.96 0 013 12c0-4.97 4.03-9 9-9s9 4.03 9 9z"/></svg>
-      </div>
-      <h3 class="font-display font-bold text-lg mb-2">Discovery Call</h3>
-      <p class="text-sm text-gray-400">We learn your offer, audience, and past ad data to reverse-engineer what will convert.</p>
-    </div>
-    <div class="glass rounded-2xl p-6 fade-up relative">
-      <span class="text-5xl font-display font-extrabold text-white/10 absolute top-4 right-5">02</span>
-      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center mb-5">
-        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-      </div>
-      <h3 class="font-display font-bold text-lg mb-2">Hook & Script</h3>
-      <p class="text-sm text-gray-400">Direct-response copywriters + AI craft 3–5 second hooks proven to stop the scroll.</p>
-    </div>
-    <div class="glass rounded-2xl p-6 fade-up relative">
-      <span class="text-5xl font-display font-extrabold text-white/10 absolute top-4 right-5">03</span>
-      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center mb-5">
-        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.55-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.45.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-      </div>
-      <h3 class="font-display font-bold text-lg mb-2">AI Production</h3>
-      <p class="text-sm text-gray-400">Photoreal AI avatars deliver the script with natural tone, pacing, and B-roll overlays.</p>
-    </div>
-    <div class="glass rounded-2xl p-6 fade-up relative">
-      <span class="text-5xl font-display font-extrabold text-white/10 absolute top-4 right-5">04</span>
-      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center mb-5">
-        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-      </div>
-      <h3 class="font-display font-bold text-lg mb-2">Test & Scale</h3>
-      <p class="text-sm text-gray-400">We deliver a batch of variants weekly so your media buyer can test fast and scale winners.</p>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS / STATS -->
-<section id="results" class="relative py-28 px-6 bg-white/[0.02] border-y border-white/5">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-      <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">Outcomes, Not Just Videos</span>
-      <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 mb-4">We're Measured By Your Metrics</h2>
-      <p class="text-gray-400">Every ad we ship is built around one goal: performance in your ad account.</p>
+<section id="process" class="relative py-28 px-6 lg:px-10 bg-white/[0.02] border-y border-white/5">
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">How It Works</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">From brief to scroll-stopping ad in days, not weeks</h2>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-      <div class="glass rounded-2xl p-6 text-center fade-up">
-        <p class="font-display text-4xl font-extrabold gradient-text num-counter" data-count="320">0</p>
-        <p class="text-xs text-gray-400 mt-2 uppercase tracking-wide">% Avg CTR Increase</p>
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <p class="font-display text-3xl font-extrabold grad-text mb-4">01</p>
+        <h3 class="font-display font-bold text-lg mb-2">Discovery & Strategy</h3>
+        <p class="text-sm text-gray-400">We study your product, audience, and top competitors to define winning hooks and angles.</p>
       </div>
-      <div class="glass rounded-2xl p-6 text-center fade-up">
-        <p class="font-display text-4xl font-extrabold gradient-text num-counter" data-count="61">0</p>
-        <p class="text-xs text-gray-400 mt-2 uppercase tracking-wide">% Lower CPA on avg</p>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <p class="font-display text-3xl font-extrabold grad-text mb-4">02</p>
+        <h3 class="font-display font-bold text-lg mb-2">Scripting</h3>
+        <p class="text-sm text-gray-400">Conversion-focused scripts built on proven UGC frameworks — hook, story, offer, CTA.</p>
       </div>
-      <div class="glass rounded-2xl p-6 text-center fade-up">
-        <p class="font-display text-4xl font-extrabold gradient-text num-counter" data-count="72">0</p>
-        <p class="text-xs text-gray-400 mt-2 uppercase tracking-wide">Hrs Saved per Month</p>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <p class="font-display text-3xl font-extrabold grad-text mb-4">03</p>
+        <h3 class="font-display font-bold text-lg mb-2">AI Production</h3>
+        <p class="text-sm text-gray-400">AI avatars, voices, and edits bring the script to life — fast, on-brand, and endlessly scalable.</p>
       </div>
-      <div class="glass rounded-2xl p-6 text-center fade-up">
-        <p class="font-display text-4xl font-extrabold gradient-text num-counter" data-count="8">0</p>
-        <p class="text-xs text-gray-400 mt-2 uppercase tracking-wide">M+ Views Generated</p>
-      </div>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="glass rounded-2xl p-6 fade-up">
-        <div class="flex gap-1 text-yellow-400 mb-4">★★★★★</div>
-        <p class="text-gray-300 text-sm mb-5">"We replaced our entire creator roster with ViralCast's AI ads. Our CPA dropped 55% in the first two weeks and we're finally testing at scale."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-pink-500"></div>
-          <div><p class="text-sm font-semibold">Marketing Lead</p><p class="text-xs text-gray-500">Skincare DTC Brand</p></div>
-        </div>
-      </div>
-      <div class="glass rounded-2xl p-6 fade-up">
-        <div class="flex gap-1 text-yellow-400 mb-4">★★★★★</div>
-        <p class="text-gray-300 text-sm mb-5">"The astrology hooks they wrote outperformed our top creator ad by 3x on CTR. Insanely fast turnaround too — 2 days from brief to delivery."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500"></div>
-          <div><p class="text-sm font-semibold">Growth Manager</p><p class="text-xs text-gray-500">Astrology App</p></div>
-        </div>
-      </div>
-      <div class="glass rounded-2xl p-6 fade-up">
-        <div class="flex gap-1 text-yellow-400 mb-4">★★★★★</div>
-        <p class="text-gray-300 text-sm mb-5">"We used to spend $40k/mo on creator UGC. Now we get 4x more creative volume for way less, and it converts better on Meta and TikTok."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-violet-500"></div>
-          <div><p class="text-sm font-semibold">Founder</p><p class="text-xs text-gray-500">Mobile App Company</p></div>
-        </div>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <p class="font-display text-3xl font-extrabold grad-text mb-4">04</p>
+        <h3 class="font-display font-bold text-lg mb-2">Test & Scale</h3>
+        <p class="text-sm text-gray-400">We deliver multiple variants for A/B testing, then double down on what performs.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing" class="relative py-28 px-6 max-w-7xl mx-auto">
-  <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-    <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">Packages</span>
-    <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 mb-4">Simple, Scalable Pricing</h2>
-    <p class="text-gray-400">Every plan includes hook writing, AI production, captions, and editing. Custom enterprise plans available.</p>
+<!-- WHY AI UGC -->
+<section id="why" class="relative py-28 px-6 lg:px-10">
+  <div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center">
+    <div class="fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">Why AI UGC</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">Same conversion power. A fraction of the time and cost.</h2>
+      <p class="mt-5 text-gray-400 text-lg">Traditional UGC means chasing creators, scheduling shoots, and waiting weeks for footage. We compress that entire pipeline into days — without sacrificing the authenticity that makes UGC convert in the first place.</p>
+      <a href="#contact" class="inline-flex mt-8 items-center gap-2 grad-btn text-white font-semibold px-7 py-3.5 rounded-xl hover:opacity-90 transition">
+        See What We Can Build →
+      </a>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <div class="w-11 h-11 rounded-xl grad-btn flex items-center justify-center text-lg mb-4">⚡</div>
+        <h3 class="font-display font-bold mb-1.5">Rapid Turnaround</h3>
+        <p class="text-sm text-gray-400">Get on-brand ad creatives in days, not weeks — no shoot scheduling or creator delays.</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <div class="w-11 h-11 rounded-xl grad-btn flex items-center justify-center text-lg mb-4">📈</div>
+        <h3 class="font-display font-bold mb-1.5">Built to Test</h3>
+        <p class="text-sm text-gray-400">Multiple hooks and variants per concept so your media buyers always have fresh creative to test.</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <div class="w-11 h-11 rounded-xl grad-btn flex items-center justify-center text-lg mb-4">🎯</div>
+        <h3 class="font-display font-bold mb-1.5">Performance-First</h3>
+        <p class="text-sm text-gray-400">Every script starts with the outcome — installs, sales, sign-ups — not just "content."</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover fade-up">
+        <div class="w-11 h-11 rounded-xl grad-btn flex items-center justify-center text-lg mb-4">💸</div>
+        <h3 class="font-display font-bold mb-1.5">Cost Efficient</h3>
+        <p class="text-sm text-gray-400">No talent fees, no reshoots, no logistics — scale creative output without scaling budget.</p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="glass rounded-2xl p-8 fade-up">
-      <h3 class="font-display font-bold text-xl mb-1">Starter</h3>
-      <p class="text-sm text-gray-400 mb-6">For brands testing AI UGC</p>
-      <p class="font-display text-3xl font-extrabold mb-6">8 <span class="text-base text-gray-400 font-normal">ads / month</span></p>
-      <ul class="text-sm text-gray-300 space-y-3 mb-8">
-        <li>✓ Hook + script writing</li>
-        <li>✓ AI avatar production</li>
-        <li>✓ Platform-ready edits</li>
-        <li>✓ 5 day turnaround</li>
-      </ul>
-      <a href="#contact" class="block text-center glass hover:bg-white/10 transition font-semibold py-3 rounded-full text-sm">Choose Starter</a>
+<!-- PACKAGES -->
+<section id="packages" class="relative py-28 px-6 lg:px-10 bg-white/[0.02] border-y border-white/5">
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">Packages</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">Choose your creative engine</h2>
+      <p class="mt-4 text-gray-400">Every package is tailored to your brand and goals. Get in touch for a custom quote based on volume and scope.</p>
     </div>
-    <div class="rounded-2xl p-8 relative fade-up border-2 border-transparent bg-gradient-to-br from-violet-600/20 to-pink-600/20" style="background-clip:padding-box;">
-      <span class="absolute -top-3 left-1/2 -translate-x-1/2 badge-tag bg-gradient-to-r from-violet-500 to-pink-500 text-white">Most Popular</span>
-      <h3 class="font-display font-bold text-xl mb-1">Growth</h3>
-      <p class="text-sm text-gray-400 mb-6">For scaling ad spend</p>
-      <p class="font-display text-3xl font-extrabold mb-6">20 <span class="text-base text-gray-400 font-normal">ads / month</span></p>
-      <ul class="text-sm text-gray-300 space-y-3 mb-8">
-        <li>✓ Everything in Starter</li>
-        <li>✓ Weekly hook testing batches</li>
-        <li>✓ Performance-based iteration</li>
-        <li>✓ 3 day turnaround</li>
-        <li>✓ Dedicated strategist</li>
-      </ul>
-      <a href="#contact" class="block text-center btn-primary text-white font-semibold py-3 rounded-full text-sm">Choose Growth</a>
+
+    <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+      <!-- Starter -->
+      <div class="grad-border rounded-[1.25rem] glass p-8 flex flex-col card-hover fade-up">
+        <h3 class="font-display font-bold text-xl">Launch</h3>
+        <p class="text-sm text-gray-400 mt-2">For brands testing AI UGC for the first time.</p>
+        <div class="mt-6 h-px bg-white/10"></div>
+        <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> A handful of AI UGC ad concepts / month</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Scriptwriting & hook development</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> AI avatar or voice-led creative</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> 1 revision round per ad</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Delivered ready for Meta / TikTok / YouTube</li>
+        </ul>
+        <a href="#contact" class="mt-8 text-center glass font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition">Get a Custom Quote</a>
+      </div>
+
+      <!-- Growth (Popular) -->
+      <div class="relative rounded-[1.25rem] p-8 flex flex-col card-hover fade-up bg-gradient-to-b from-violet-600/20 to-pink-500/10 border border-violet-400/30">
+        <span class="popular-badge absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full text-white">MOST POPULAR</span>
+        <h3 class="font-display font-bold text-xl">Growth</h3>
+        <p class="text-sm text-gray-300 mt-2">For brands actively scaling paid acquisition.</p>
+        <div class="mt-6 h-px bg-white/10"></div>
+        <ul class="mt-6 space-y-3 text-sm text-gray-200 flex-1">
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Expanded volume of AI UGC ad creatives / month</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Multiple hook & angle variants per concept</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> AI avatars, voiceover & captions/edits</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Dedicated creative strategist</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> 2 revision rounds per ad</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Performance-based iteration each cycle</li>
+        </ul>
+        <a href="#contact" class="mt-8 text-center grad-btn text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition">Get a Custom Quote</a>
+      </div>
+
+      <!-- Scale -->
+      <div class="grad-border rounded-[1.25rem] glass p-8 flex flex-col card-hover fade-up">
+        <h3 class="font-display font-bold text-xl">Scale</h3>
+        <p class="text-sm text-gray-400 mt-2">For brands running always-on creative pipelines.</p>
+        <div class="mt-6 h-px bg-white/10"></div>
+        <ul class="mt-6 space-y-3 text-sm text-gray-300 flex-1">
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> High-volume AI UGC production / month</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Full creative testing matrix (hooks × angles × formats)</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Multi-platform edits (Reels, Shorts, TikTok, Spark Ads)</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Dedicated strategist + priority turnaround</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Unlimited revision rounds</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✓</span> Monthly performance & creative insights report</li>
+        </ul>
+        <a href="#contact" class="mt-8 text-center glass font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition">Get a Custom Quote</a>
+      </div>
+
     </div>
-    <div class="glass rounded-2xl p-8 fade-up">
-      <h3 class="font-display font-bold text-xl mb-1">Enterprise</h3>
-      <p class="text-sm text-gray-400 mb-6">For agencies & large brands</p>
-      <p class="font-display text-3xl font-extrabold mb-6">Custom <span class="text-base text-gray-400 font-normal">volume</span></p>
-      <ul class="text-sm text-gray-300 space-y-3 mb-8">
-        <li>✓ Unlimited revisions</li>
-        <li>✓ Multi-brand support</li>
-        <li>✓ Priority 48hr delivery</li>
-        <li>✓ Custom AI avatar training</li>
-      </ul>
-      <a href="#contact" class="block text-center glass hover:bg-white/10 transition font-semibold py-3 rounded-full text-sm">Contact Sales</a>
+    <p class="text-center text-xs text-gray-500 mt-10">All packages are scoped to your brand's goals, offer, and volume needs — reach out for pricing and a tailored proposal.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="relative py-28 px-6 lg:px-10">
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">What Brands Say</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">Trusted by teams who live and die by ROAS</h2>
+    </div>
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass rounded-2xl p-8 card-hover fade-up">
+        <p class="text-yellow-400 mb-4">★★★★★</p>
+        <p class="text-gray-300 text-sm leading-relaxed">"We plugged UGenStudio's creatives straight into our Meta account and our CPA dropped within the first week. The volume they deliver lets us test way faster than any creator network."</p>
+        <p class="mt-5 font-semibold text-sm">Marketing Lead</p>
+        <p class="text-xs text-gray-500">Skincare DTC Brand</p>
+      </div>
+      <div class="glass rounded-2xl p-8 card-hover fade-up">
+        <p class="text-yellow-400 mb-4">★★★★★</p>
+        <p class="text-gray-300 text-sm leading-relaxed">"The hooks alone are worth it. Our astrology app's install rate jumped noticeably after swapping our old ads for UGenStudio's AI UGC concepts."</p>
+        <p class="mt-5 font-semibold text-sm">Growth Manager</p>
+        <p class="text-xs text-gray-500">Astrology & Lifestyle App</p>
+      </div>
+      <div class="glass rounded-2xl p-8 card-hover fade-up">
+        <p class="text-yellow-400 mb-4">★★★★★</p>
+        <p class="text-gray-300 text-sm leading-relaxed">"Turnaround is unreal. We asked for a batch of new angles and had finished, ready-to-run ads in days. It's become our default creative pipeline."</p>
+        <p class="mt-5 font-semibold text-sm">Performance Marketer</p>
+        <p class="text-xs text-gray-500">Mobile App Brand</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="relative py-28 px-6 bg-white/[0.02] border-y border-white/5">
-  <div class="max-w-3xl mx-auto">
-    <div class="text-center mb-16 fade-up">
-      <span class="text-violet-400 font-semibold text-sm uppercase tracking-widest">FAQ</span>
-      <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3">Questions Brands Ask Us</h2>
+<section id="faq" class="relative py-28 px-6 lg:px-10 bg-white/[0.02] border-y border-white/5">
+  <div class="mx-auto max-w-3xl">
+    <div class="text-center fade-up">
+      <p class="text-sm font-semibold grad-text uppercase tracking-widest mb-3">FAQ</p>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">Questions, answered</h2>
     </div>
 
-    <div class="space-y-4">
+    <div class="mt-14 space-y-4">
       <div class="accordion-item glass rounded-2xl p-6 fade-up">
-        <button class="accordion-toggle flex items-center justify-between w-full text-left font-semibold">
-          What exactly is an "AI UGC ad"?
-          <span class="chevron text-xl">+</span>
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">What exactly is an "AI UGC" ad?</span>
+          <span class="chev text-2xl leading-none">+</span>
         </button>
-        <div class="accordion-content text-sm text-gray-400 mt-3">
-          It's a short-form video ad that looks and feels like organic creator content, but is generated using AI avatars, voices, and editing — no real actors, filming, or scheduling required. Same authenticity, faster and cheaper.
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">It's a UGC-style ad — talking-head, testimonial, or storytelling format — produced using AI avatars, voices, and editing instead of hiring and filming a human creator. It keeps the same authentic, native feel that converts on social, at a fraction of the production time.</p>
         </div>
       </div>
       <div class="accordion-item glass rounded-2xl p-6 fade-up">
-        <button class="accordion-toggle flex items-center justify-between w-full text-left font-semibold">
-          How fast is turnaround?
-          <span class="chevron text-xl">+</span>
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">How fast can you deliver ads?</span>
+          <span class="chev text-2xl leading-none">+</span>
         </button>
-        <div class="accordion-content text-sm text-gray-400 mt-3">
-          Most creative batches are delivered within 48–72 hours of a locked script, and revisions are typically turned around same-day.
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">Most initial concepts are delivered within days of finalizing scripts. Ongoing package clients receive a steady monthly cadence of new creative, with priority turnaround available on higher-tier plans.</p>
         </div>
       </div>
       <div class="accordion-item glass rounded-2xl p-6 fade-up">
-        <button class="accordion-toggle flex items-center justify-between w-full text-left font-semibold">
-          Can you match our brand voice and past winning ads?
-          <span class="chevron text-xl">+</span>
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">Do you write the scripts too?</span>
+          <span class="chev text-2xl leading-none">+</span>
         </button>
-        <div class="accordion-content text-sm text-gray-400 mt-3">
-          Yes. We start every engagement by auditing your best performing organic and paid content so new creatives feel on-brand and are built on proven hooks.
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">Yes. Every project starts with strategy — we research your product, audience, and competitors, then write conversion-focused scripts built around proven hook and story frameworks before any production begins.</p>
         </div>
       </div>
       <div class="accordion-item glass rounded-2xl p-6 fade-up">
-        <button class="accordion-toggle flex items-center justify-between w-full text-left font-semibold">
-          What niches do you work with?
-          <span class="chevron text-xl">+</span>
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">Can the creative match our brand voice?</span>
+          <span class="chev text-2xl leading-none">+</span>
         </button>
-        <div class="accordion-content text-sm text-gray-400 mt-3">
-          Skincare & beauty, astrology and spiritual apps, mobile & AI apps, wellness, supplements, and fintech are our strongest categories — but our process adapts to most consumer brands.
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">Absolutely. We tailor avatar style, tone, pacing, and visuals to fit your brand guidelines and past top-performing creative, so every ad feels native to your existing marketing.</p>
         </div>
       </div>
       <div class="accordion-item glass rounded-2xl p-6 fade-up">
-        <button class="accordion-toggle flex items-center justify-between w-full text-left font-semibold">
-          Do you help with editing and captions too?
-          <span class="chevron text-xl">+</span>
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">What platforms do you optimize for?</span>
+          <span class="chev text-2xl leading-none">+</span>
         </button>
-        <div class="accordion-content text-sm text-gray-400 mt-3">
-          Every ad ships fully edited, captioned, and formatted for Meta, TikTok, and YouTube Shorts — ready to upload straight into your ad account.
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">TikTok, Instagram Reels, YouTube Shorts, and Meta/TikTok Spark Ads — every deliverable is formatted and captioned for vertical, sound-off-friendly viewing.</p>
+        </div>
+      </div>
+      <div class="accordion-item glass rounded-2xl p-6 fade-up">
+        <button class="accordion-toggle w-full flex items-center justify-between text-left">
+          <span class="font-semibold">How much does it cost?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </button>
+        <div class="accordion-content">
+          <p class="text-sm text-gray-400 mt-4">Every brand's scope, volume, and goals are different, so pricing is custom. Book a quick call and we'll recommend the right package and put together a tailored quote for you.</p>
         </div>
       </div>
     </div>
@@ -519,140 +512,133 @@
 </section>
 
 <!-- CONTACT / CTA -->
-<section id="contact" class="relative py-28 px-6 max-w-5xl mx-auto">
-  <div class="blob w-[400px] h-[400px] bg-violet-600 top-0 left-0"></div>
-  <div class="blob w-[400px] h-[400px] bg-pink-600 bottom-0 right-0"></div>
-  <div class="relative glass rounded-3xl p-8 sm:p-14 fade-up">
-    <div class="text-center max-w-xl mx-auto mb-10">
-      <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">Let's Build Ads That Actually Convert</h2>
-      <p class="text-gray-400">Tell us about your brand and we'll send back a free custom hook concept within 24 hours.</p>
+<section id="contact" class="relative py-28 px-6 lg:px-10 overflow-hidden">
+  <div class="blob w-[400px] h-[400px] bg-violet-600 top-[-100px] right-[10%]"></div>
+  <div class="blob w-[350px] h-[350px] bg-cyan-400 bottom-[-100px] left-[10%]"></div>
+  <div class="relative z-10 mx-auto max-w-4xl">
+    <div class="grad-border rounded-[1.5rem] glass p-10 sm:p-14 text-center fade-up">
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl">Let's build your next high-converting ad</h2>
+      <p class="mt-4 text-gray-400 max-w-xl mx-auto">Tell us a bit about your brand and goals. We'll follow up with creative ideas and a tailored package recommendation.</p>
+
+      <form id="contactForm" class="mt-10 grid sm:grid-cols-2 gap-4 text-left">
+        <div class="sm:col-span-1">
+          <label class="text-xs text-gray-400">Name</label>
+          <input type="text" required class="mt-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-400" placeholder="Your name">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-xs text-gray-400">Email</label>
+          <input type="email" required class="mt-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-400" placeholder="you@brand.com">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-xs text-gray-400">Brand / Company</label>
+          <input type="text" class="mt-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-400" placeholder="Brand name">
+        </div>
+        <div class="sm:col-span-1">
+          <label class="text-xs text-gray-400">Industry</label>
+          <input type="text" class="mt-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-400" placeholder="e.g. Skincare, App, Astrology">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-xs text-gray-400">What are you looking to achieve?</label>
+          <textarea rows="4" class="mt-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-400" placeholder="Tell us about your goals, volume needs, and timeline..."></textarea>
+        </div>
+        <div class="sm:col-span-2">
+          <button type="submit" class="w-full grad-btn text-white font-semibold px-8 py-4 rounded-xl hover:opacity-90 transition">
+            Send & Book a Strategy Call
+          </button>
+        </div>
+      </form>
+      <p id="formNote" class="mt-4 text-xs text-gray-500"></p>
     </div>
-    <form id="leadForm" class="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
-      <input required type="text" placeholder="Full Name" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 sm:col-span-1">
-      <input required type="email" placeholder="Work Email" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 sm:col-span-1">
-      <input type="text" placeholder="Brand / Company" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 sm:col-span-2">
-      <select class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 sm:col-span-2 text-gray-300">
-        <option class="bg-[#111]">Monthly Ad Spend: Under $10k</option>
-        <option class="bg-[#111]">Monthly Ad Spend: $10k–$50k</option>
-        <option class="bg-[#111]">Monthly Ad Spend: $50k–$200k</option>
-        <option class="bg-[#111]">Monthly Ad Spend: $200k+</option>
-      </select>
-      <textarea placeholder="Tell us about your brand and goals" rows="4" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-violet-500 sm:col-span-2"></textarea>
-      <button type="submit" class="btn-primary text-white font-semibold py-3.5 rounded-xl text-sm sm:col-span-2">Book My Free Strategy Call →</button>
-    </form>
-    <p id="formSuccess" class="hidden text-center text-emerald-400 font-semibold mt-6">🎉 Thanks! We'll be in touch within 24 hours with your custom hook concept.</p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="relative border-t border-white/10 py-10 px-6">
-  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="flex items-center gap-2 font-display font-bold">
-      <span class="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-xs font-bold">V</span>
-      ViralCast AI
-    </div>
-    <p class="text-xs text-gray-500">© 2026 ViralCast AI. AI-generated UGC ad creatives for high-growth brands.</p>
-    <div class="flex gap-5 text-gray-400 text-sm">
-      <a href="#work" class="hover:text-white transition">Work</a>
-      <a href="#pricing" class="hover:text-white transition">Pricing</a>
-      <a href="#contact" class="hover:text-white transition">Contact</a>
+<footer class="border-t border-white/5 py-12 px-6 lg:px-10">
+  <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-6">
+    <a href="#top" class="flex items-center gap-2 font-display font-extrabold text-lg">
+      <span class="w-9 h-9 rounded-xl grad-btn flex items-center justify-center text-sm">✨</span>
+      UGen<span class="grad-text">Studio</span>
+    </a>
+    <p class="text-sm text-gray-500 text-center">AI UGC ad creatives built to convert. © <span id="year"></span> UGenStudio. All rights reserved.</p>
+    <div class="flex items-center gap-4 text-gray-400">
+      <a href="#" class="hover:text-white transition text-sm">Instagram</a>
+      <a href="#" class="hover:text-white transition text-sm">TikTok</a>
+      <a href="#" class="hover:text-white transition text-sm">LinkedIn</a>
     </div>
   </div>
 </footer>
 
-<!-- VIDEO MODAL -->
-<div id="videoModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/85 backdrop-blur-sm p-6">
-  <div class="relative w-full max-w-xs sm:max-w-sm">
-    <button id="closeModal" class="absolute -top-12 right-0 text-white/80 hover:text-white text-3xl leading-none">&times;</button>
-    <div class="aspect-[9/16] rounded-2xl overflow-hidden bg-black" id="modalPlayer"></div>
-  </div>
-</div>
-
 <script>
-  // Nav scroll effect
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      navbar.classList.add('bg-black/60','backdrop-blur-xl','border-b','border-white/10');
-    } else {
-      navbar.classList.remove('bg-black/60','backdrop-blur-xl','border-b','border-white/10');
-    }
-  });
-
   // Mobile menu
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-  // Fade up on scroll
+  // Fade-up on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('show');
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Number counters
+  // Counter animation
   const counters = document.querySelectorAll('.num-counter');
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = +el.dataset.count;
-        let current = 0;
-        const step = Math.max(1, Math.ceil(target / 60));
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) { current = target; clearInterval(timer); }
-          el.textContent = current;
-        }, 25);
-        counterObserver.unobserve(el);
-      }
+  let countersStarted = false;
+  const startCounters = () => {
+    if (countersStarted) return;
+    countersStarted = true;
+    counters.forEach(counter => {
+      const target = parseFloat(counter.dataset.count);
+      const decimal = counter.dataset.decimal;
+      const isDecimalCombo = decimal !== undefined;
+      const finalValue = isDecimalCombo ? parseFloat(target + '.' + decimal) : target;
+      let current = 0;
+      const duration = 1400;
+      const steps = 40;
+      const increment = finalValue / steps;
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= finalValue) {
+          current = finalValue;
+          clearInterval(interval);
+        }
+        counter.textContent = isDecimalCombo ? current.toFixed(1) : Math.round(current);
+      }, duration / steps);
     });
-  }, { threshold: 0.5 });
-  counters.forEach(c => counterObserver.observe(c));
-
-  // Video modal
-  const videoModal = document.getElementById('videoModal');
-  const modalPlayer = document.getElementById('modalPlayer');
-  const closeModal = document.getElementById('closeModal');
-
-  document.querySelectorAll('.video-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const id = card.dataset.id;
-      modalPlayer.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="Ad sample" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      videoModal.classList.remove('hidden');
-      videoModal.classList.add('flex');
-    });
-  });
-
-  function closeVideoModal(){
-    videoModal.classList.add('hidden');
-    videoModal.classList.remove('flex');
-    modalPlayer.innerHTML = '';
-  }
-  closeModal.addEventListener('click', closeVideoModal);
-  videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
+  };
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) startCounters(); });
+  }, { threshold: 0.3 });
+  const statBlock = document.querySelector('.num-counter');
+  if (statBlock) heroObserver.observe(statBlock.closest('section'));
 
   // Accordion
   document.querySelectorAll('.accordion-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.accordion-item');
-      const wasActive = item.classList.contains('active');
-      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-      if (!wasActive) item.classList.add('active');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
   });
 
-  // Lead form
-  const leadForm = document.getElementById('leadForm');
-  const formSuccess = document.getElementById('formSuccess');
-  leadForm.addEventListener('submit', (e) => {
+  // Contact form (demo submission)
+  const form = document.getElementById('contactForm');
+  const formNote = document.getElementById('formNote');
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    leadForm.classList.add('hidden');
-    formSuccess.classList.remove('hidden');
+    formNote.textContent = "Thanks! Your request has been noted — we'll be in touch shortly. (Connect this form to your email/CRM to go live.)";
+    form.reset();
   });
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
+
